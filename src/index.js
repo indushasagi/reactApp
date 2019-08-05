@@ -42,5 +42,52 @@ const App = () => {
   );
 };
 
+// inheriting
+class person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+class Employee extends person {
+  constructor(name, age, role, ...contact) {
+    super(name, age);
+    this.role = role;
+    this.contact = contact;
+    this.state = { name: "", age: "", role: "", data: {} };
+    this.getDetails = this.getDetails.bind(this);
+  }
+
+  getDetails() {
+    const newState = {};
+    for (let [i, v] of `${this.contact}`.split(",").entries()) {
+      newState["phone" + i] = v;
+    }
+    Object.values(newState).map(function(value){
+      console.log(value);
+      return value;
+    });
+
+    console.log(
+      "The details of employee : Name =>",
+      `${this.name}`,
+      ", Age =>",
+      `${this.age}`,
+      ", Role =>",
+      `${this.role}`      
+    );
+  }
+
+  render() {
+    return <div />;
+  }
+}
+
+let Details = new Employee("Sagi", "25", "SE", "9876543210", "9876543211");
+Details.getDetails();
+
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+
+
